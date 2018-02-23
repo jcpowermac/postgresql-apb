@@ -2,7 +2,21 @@
 # Shared Parameters
 ################################################################################
 _p: &_p
-  - name: postgresql_database
+  - name: postgresql_admin_password
+    type: string
+    title: PostgreSQL Admin Password
+    display_type: password
+    pattern: "^[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]+$"
+    required: true
+  - name: postgresql_version
+    default: '9.6'
+    enum: ['9.6', '9.5', '9.4']
+    type: enum
+    title: PostgreSQL Version
+    required: true
+    updatable: true
+_b: &_b
+  - name: postgresql_db_name
     default: admin
     type: string
     title: PostgreSQL Database Name
@@ -21,13 +35,12 @@ _p: &_p
     display_type: password
     pattern: "^[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]+$"
     required: true
-  - name: postgresql_version
-    default: '9.6'
-    enum: ['9.6', '9.5', '9.4']
-    type: enum
-    title: PostgreSQL Version
+  - name: postgresql_superuser
+    default: false
+    title: PostgreSQL Super User
+    type: boolean
     required: true
-    updatable: true
+
 ################################################################################
 version: 1.0
 name: postgresql-apb
@@ -56,6 +69,7 @@ plans:
       longDescription: This plan provides a single non-HA PostgreSQL server without persistent storage
       cost: $0.00
     parameters: *_p
+    bind_parameters: *_b
     updates_to:
       - prod
   - name: prod
@@ -66,5 +80,6 @@ plans:
       longDescription: This plan provides a single non-HA PostgreSQL server with persistent storage
       cost: $0.00
     parameters: *_p
+    bind_parameters: *_b
     updates_to:
       - dev
