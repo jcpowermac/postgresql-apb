@@ -22,12 +22,8 @@
       service: postgresql-{{ postgresql_version }}-{{ _apb_plan_id }}
     containers:
     - env:
-      - name: POSTGRESQL_PASSWORD
-        value: '{{ postgresql_password }}'
-      - name: POSTGRESQL_USER
-        value: '{{ postgresql_user }}'
-      - name: POSTGRESQL_DATABASE
-        value: '{{ postgresql_database }}'
+      - name: POSTGRESQL_ADMIN_PASSWORD
+        value: '{{ postgresql_admin_password }}'
       image: "{{ image }}"
       image_pull_policy: IfNotPresent
       name: postgresql
@@ -72,12 +68,8 @@
       service: postgresql-{{ postgresql_version }}-{{ _apb_plan_id }}
     containers:
     - env:
-      - name: POSTGRESQL_PASSWORD
-        value: '{{ postgresql_password }}'
-      - name: POSTGRESQL_USER
-        value: '{{ postgresql_user }}'
-      - name: POSTGRESQL_DATABASE
-        value: '{{ postgresql_database }}'
+      - name: POSTGRESQL_ADMIN_PASSWORD
+        value: '{{ postgresql_admin_password }}'
       image: "{{ image }}"
       image_pull_policy: IfNotPresent
       name: postgresql
