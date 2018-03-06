@@ -89,4 +89,6 @@
       DB_NAME: "{{ postgresql_db_name }}"
       DB_USER: "{{ postgresql_user }}"
       DB_PASSWORD: "{{ postgresql_password }}"
-  when: state == "present"
+  when:
+    - state == "present"
+    - encode
